@@ -1,5 +1,5 @@
 import { Message } from 'discord.js-selfbot-v13';
-import { CustomClient } from '../client/CustomClient';
+import { CustomClient } from '#client';
 
 export const name = 'messageCreate';
 

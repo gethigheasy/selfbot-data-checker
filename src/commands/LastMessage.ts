@@ -39,9 +39,25 @@ export const command: Command = {
             const messages = await (channel as GuildTextBasedChannel).messages.fetch({ limit: 50 });
             const userMsg = messages.find((msg: Message) => msg.author.id === targetId);
             if (userMsg) {
-              await message.channel.send(
-                `📨 Última mensagem de <@${targetId}> em **${guild.name} / #${channel.name}**:\n${userMsg.content}`
-              );
+              const member = guild.members.cache.get(targetId);
+              const status = member?.presence?.status || 'offline';
+              const statusEmoji = {
+                online: '🟢',
+                idle: '🌙',
+                dnd: '🔴',
+                offline: '⚫',
+                invisible: '⚫'
+              }[status];
+
+              let embed = `📨 **Última mensagem de <@${targetId}>**\n\n`;
+              embed += `**Servidor:** ${guild.name}\n`;
+              embed += `**Canal:** #${channel.name}\n`;
+              embed += `**Status:** ${statusEmoji} ${status}\n`;
+              embed += `**Hora:** <t:${Math.floor(userMsg.createdTimestamp / 1000)}:F>\n`;
+              embed += `**Conteúdo:**\n${userMsg.content || '[Sem texto]'}\n\n`;
+              embed += `🔗 [Pular para mensagem](${userMsg.url})`;
+
+              await message.channel.send(embed);
               found = true;
               return;
             }

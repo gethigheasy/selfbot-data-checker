@@ -1,5 +1,5 @@
 import { Command } from '../types/Command';
-import { VoiceState, VoiceChannel } from 'discord.js-selfbot-v13';
+import { VoiceState, VoiceChannel, Presence } from 'discord.js-selfbot-v13';
 
 export const command: Command = {
   name: 'lastvoice',
@@ -29,8 +29,12 @@ export const command: Command = {
               status += `📺 **Streaming**\n`;
             }
 
-            if (userVoiceState.requestToSpeakTimestamp) {
-              status += `🎮 **Jogando**\n`;
+            const member = guild.members.cache.get(targetId);
+            if (member?.presence?.activities.length) {
+              const game = member.presence.activities.find(a => a.type === 'PLAYING');
+              if (game) {
+                status += `🎮 **Jogando:** ${game.name}\n`;
+              }
             }
 
             if (userVoiceState.mute) {

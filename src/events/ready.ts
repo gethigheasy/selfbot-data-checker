@@ -1,5 +1,4 @@
-// src/events/ready.ts
-import { CustomClient } from '../client/CustomClient';
+import { CustomClient } from '#client';
 
 export const name = 'ready';
 

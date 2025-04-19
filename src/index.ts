@@ -1,9 +1,5 @@
-import { CustomClient } from './client/CustomClient';
-import { loadCommands } from './utils/loader';
-import dotenv from 'dotenv';
-import { loadEvents } from './utils/loader';
-
-dotenv.config();
+import { CustomClient } from '#client';
+import { loadCommands, loadEvents } from '#utils';
 
 const PREFIX = process.env.PREFIX;
 const OWNER_ID = process.env.OWNER_ID;

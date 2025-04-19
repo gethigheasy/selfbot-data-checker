@@ -1,5 +1,5 @@
-import { Command } from '../types/Command';
-import { VoiceState, VoiceChannel, Presence } from 'discord.js-selfbot-v13';
+import { Command } from '#types';
+import { VoiceChannel } from 'discord.js-selfbot-v13';
 
 export const command: Command = {
   name: 'lastvoice',
